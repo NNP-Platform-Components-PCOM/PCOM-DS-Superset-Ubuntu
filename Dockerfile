@@ -12,7 +12,7 @@ ARG VCS_REF
 ARG VERSION="6.0.0"
 
 LABEL org.opencontainers.image.title="pcom-ds-superset-ubuntu" \
-      org.opencontainers.image.description="Apache Superset 6.0.0 with PostgreSQL, MySQL, StarRocks, Hive, ClickHouse, and analytics connectors for NNP Data Suite." \
+      org.opencontainers.image.description="Apache Superset 6.0.0 with PostgreSQL, MySQL, MSSQL, StarRocks, ClickHouse, Hive, Trino, DuckDB, Elasticsearch, and analytics connectors." \
       org.opencontainers.image.vendor="Nubo Native Platform" \
       org.opencontainers.image.source="https://github.com/NNP-Platform-Components-PCOM/PCOM-DS-Superset-Ubuntu" \
       org.opencontainers.image.url="https://github.com/NNP-Platform-Components-PCOM/PCOM-DS-Superset-Ubuntu" \
@@ -39,14 +39,19 @@ USER superset
 RUN . /app/.venv/bin/activate && \
     uv pip install \
         psycopg2-binary \
+        mysqlclient \
         pymssql \
+        starrocks \
+        clickhouse-connect \
+        pyhive \
+        trino \
+        duckdb-engine \
+        elasticsearch-dbapi \
         Authlib \
         openpyxl \
         Pillow \
-        pyhive \
-        prophet \
-        clickhouse-connect \
-        mysqlclient \
-        starrocks
+        redis \
+        pyarrow \
+        prophet
 
 CMD ["/app/docker/entrypoints/run-server.sh"]
